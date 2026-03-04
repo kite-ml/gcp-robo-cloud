@@ -1,0 +1,72 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gcp-robocloud"
+version = "0.1.0"
+description = "One command to train your robot on cloud GPUs."
+readme = "README.md"
+license = "Apache-2.0"
+requires-python = ">=3.10"
+authors = [{ name = "gcp-robocloud contributors" }]
+keywords = ["robotics", "gcp", "gpu", "cloud", "training", "machine-learning"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: System :: Distributed Computing",
+]
+dependencies = [
+    "google-cloud-compute>=1.19",
+    "google-cloud-storage>=2.14",
+    "google-auth>=2.28",
+    "typer[all]>=0.12",
+    "rich>=13.7",
+    "pyyaml>=6.0",
+    "jinja2>=3.1",
+    "docker>=7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-mock>=3.12",
+    "ruff>=0.3",
+    "mypy>=1.8",
+    "pre-commit>=3.6",
+]
+
+[project.scripts]
+gcp-robocloud = "gcp_robocloud.cli.app:app"
+
+[project.urls]
+Homepage = "https://github.com/gcp-robocloud/gcp-robocloud"
+Documentation = "https://gcp-robocloud.github.io/gcp-robocloud"
+Repository = "https://github.com/gcp-robocloud/gcp-robocloud"
+Issues = "https://github.com/gcp-robocloud/gcp-robocloud/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+    "integration: requires GCP credentials",
+]

@@ -1,0 +1,15 @@
+# Isaac Lab requires the NVIDIA Isaac Lab Docker image
+gpu: a100
+spot: true
+max_duration: 4h
+
+docker:
+  base_image: nvcr.io/nvidia/isaac-lab:4.5.0
+
+script: train.py
+args: "--task Isaac-Cartpole-v0 --num_envs 4096 --headless"
+
+sync:
+  output_patterns:
+    - "outputs/**"
+    - "logs/**"
