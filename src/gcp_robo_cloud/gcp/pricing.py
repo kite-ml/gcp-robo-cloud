@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from gcp_robo_cloud.core.gpu_map import GPUSpec, resolve_gpu
+from gcp_robo_cloud.core.gpu_map import resolve_gpu
 
 
 @dataclass
@@ -39,7 +39,9 @@ def parse_duration(duration: str) -> float:
         try:
             return float(duration)
         except ValueError:
-            raise ValueError(f"Cannot parse duration: '{duration}'. Use format like '2h', '30m', '1h30m'")
+            raise ValueError(
+                f"Cannot parse duration: '{duration}'. Use format like '2h', '30m', '1h30m'"
+            )
     return total_seconds / 3600
 
 

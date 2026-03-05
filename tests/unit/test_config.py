@@ -5,7 +5,7 @@ from pathlib import Path
 
 import yaml
 
-from gcp_robo_cloud.core.config import Config, DockerConfig, SyncConfig, load_config
+from gcp_robo_cloud.core.config import Config, load_config
 
 
 class TestConfigDefaults:

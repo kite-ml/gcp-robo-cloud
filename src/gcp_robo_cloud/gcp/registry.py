@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 from rich.console import Console
 
 if TYPE_CHECKING:
-    from google.auth.credentials import Credentials
+    pass
 
 console = Console()
 
@@ -35,7 +35,10 @@ def ensure_repository(
     # Check if repo exists, create if not
     result = subprocess.run(
         [
-            "gcloud", "artifacts", "repositories", "describe",
+            "gcloud",
+            "artifacts",
+            "repositories",
+            "describe",
             repo_name,
             f"--project={project_id}",
             f"--location={region}",
@@ -48,7 +51,10 @@ def ensure_repository(
         console.print(f"  Creating Artifact Registry repo: {repo_path}")
         subprocess.run(
             [
-                "gcloud", "artifacts", "repositories", "create",
+                "gcloud",
+                "artifacts",
+                "repositories",
+                "create",
                 repo_name,
                 f"--project={project_id}",
                 f"--location={region}",

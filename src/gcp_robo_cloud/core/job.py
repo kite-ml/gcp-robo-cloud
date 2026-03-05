@@ -85,9 +85,7 @@ class Job:
         """Transition to a new state, enforcing valid transitions."""
         valid = _VALID_TRANSITIONS.get(self.state, set())
         if new_state not in valid:
-            raise ValueError(
-                f"Invalid state transition: {self.state.value} -> {new_state.value}"
-            )
+            raise ValueError(f"Invalid state transition: {self.state.value} -> {new_state.value}")
         self.state = new_state
         if new_state == JobState.RUNNING:
             self.started_at = datetime.now(timezone.utc).isoformat()

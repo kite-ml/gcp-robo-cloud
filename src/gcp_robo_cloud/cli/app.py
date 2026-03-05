@@ -30,11 +30,11 @@ def main(
 
 
 # Import and register subcommands
+from gcp_robo_cloud.cli.config import config  # noqa: E402
+from gcp_robo_cloud.cli.estimate import estimate  # noqa: E402
 from gcp_robo_cloud.cli.launch import launch  # noqa: E402
 from gcp_robo_cloud.cli.status import status  # noqa: E402
 from gcp_robo_cloud.cli.stop import stop  # noqa: E402
-from gcp_robo_cloud.cli.estimate import estimate  # noqa: E402
-from gcp_robo_cloud.cli.config import config  # noqa: E402
 
 app.command()(launch)
 app.command()(status)

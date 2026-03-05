@@ -91,7 +91,8 @@ for val, unit in re.findall(r'(\\d+)([hms])', s):
 print(total)
 " 2>/dev/null || echo "14400")
     echo "Max duration: $SECONDS_LIMIT seconds"
-    (sleep $SECONDS_LIMIT && echo "Max duration reached, shutting down..." && kill -TERM $$ 2>/dev/null) &
+    (sleep $SECONDS_LIMIT && echo "Max duration reached, shutting down..." \
+        && kill -TERM $$ 2>/dev/null) &
     WATCHDOG_PID=$!
 fi
 
@@ -119,8 +120,9 @@ echo "=== gcp-robo-cloud complete ==="
 
 # Self-terminate
 echo "Self-terminating VM..."
-ZONE=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/zone | cut -d'/' -f4)
-INSTANCE=$(curl -s -H "Metadata-Flavor: Google" http://metadata.google.internal/computeMetadata/v1/instance/name)
+META_URL="http://metadata.google.internal/computeMetadata/v1/instance"
+ZONE=$(curl -s -H "Metadata-Flavor: Google" $META_URL/zone | cut -d'/' -f4)
+INSTANCE=$(curl -s -H "Metadata-Flavor: Google" $META_URL/name)
 gcloud compute instances delete "$INSTANCE" --zone="$ZONE" --quiet
 """
 
@@ -231,7 +233,7 @@ def create_instance(
         zone=zone,
         instance_resource=instance,
     )
-    operation.result()  # Wait for creation
+    operation.result()  # type: ignore[no-untyped-call]  # Wait for creation
 
     return client.get(project=project_id, zone=zone, instance=instance_name)
 
@@ -250,7 +252,7 @@ def delete_instance(
             zone=zone,
             instance=instance_name,
         )
-        operation.result()
+        operation.result()  # type: ignore[no-untyped-call]
     except Exception:
         pass  # Instance may already be deleted (self-terminate)
 
@@ -284,12 +286,13 @@ def get_serial_output(
     """
     client = compute_v1.InstancesClient(credentials=credentials)
     try:
-        response = client.get_serial_port_output(
+        request = compute_v1.GetSerialPortOutputInstanceRequest(
             project=project_id,
             zone=zone,
             instance=instance_name,
             start=start,
         )
+        response = client.get_serial_port_output(request=request)
         return response.contents, response.next_
     except Exception:
         return "", start

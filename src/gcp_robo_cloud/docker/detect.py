@@ -64,10 +64,9 @@ def detect_project(project_dir: Path) -> ProjectInfo:
     # Check for dependency files
     info.has_requirements_txt = (project_dir / "requirements.txt").exists()
     info.has_pyproject_toml = (project_dir / "pyproject.toml").exists()
-    info.has_environment_yml = (
-        (project_dir / "environment.yml").exists()
-        or (project_dir / "environment.yaml").exists()
-    )
+    info.has_environment_yml = (project_dir / "environment.yml").exists() or (
+        project_dir / "environment.yaml"
+    ).exists()
     info.has_dockerfile = (project_dir / "Dockerfile").exists()
 
     # Scan requirements for framework hints

@@ -7,7 +7,7 @@ from unittest.mock import patch
 
 import pytest
 
-from gcp_robo_cloud.core.job import JOBS_DIR, Job, JobState
+from gcp_robo_cloud.core.job import Job, JobState
 
 
 class TestJobStateTransitions:

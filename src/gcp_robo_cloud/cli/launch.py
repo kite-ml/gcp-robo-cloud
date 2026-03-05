@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Optional
 
 import typer
 from rich.console import Console
@@ -21,7 +20,7 @@ from gcp_robo_cloud.gcp.pricing import estimate_cost, format_estimate
 from gcp_robo_cloud.gcp.registry import configure_docker_auth, ensure_repository, push_image
 from gcp_robo_cloud.gcp.storage import get_or_create_bucket
 from gcp_robo_cloud.monitor.logs import stream_logs
-from gcp_robo_cloud.monitor.watchdog import cleanup_job, monitor_job
+from gcp_robo_cloud.monitor.watchdog import cleanup_job
 from gcp_robo_cloud.sync.download import download_results
 from gcp_robo_cloud.sync.upload import upload_project
 
@@ -34,12 +33,31 @@ def launch(
     gpu_count: int = typer.Option(1, "--gpu-count", help="Number of GPUs."),
     args: str = typer.Option("", "--args", "-a", help="Arguments to pass to the training script."),
     spot: bool = typer.Option(True, "--spot/--no-spot", help="Use spot instances (cheaper)."),
-    max_duration: str = typer.Option("4h", "--max-duration", "-d", help="Max runtime (e.g., 2h, 30m)."),
+    max_duration: str = typer.Option(
+        "4h",
+        "--max-duration",
+        "-d",
+        help="Max runtime (e.g., 2h, 30m).",
+    ),
     name: str = typer.Option("", "--name", "-n", help="Job name."),
-    project_dir: Optional[str] = typer.Option(None, "--dir", help="Project directory (default: cwd)."),
-    config_path: Optional[str] = typer.Option(None, "--config", "-c", help="Path to gcp-robo-cloud.yaml."),
+    project_dir: str | None = typer.Option(
+        None,
+        "--dir",
+        help="Project directory (default: cwd).",
+    ),
+    config_path: str | None = typer.Option(
+        None,
+        "--config",
+        "-c",
+        help="Path to gcp-robo-cloud.yaml.",
+    ),
     async_mode: bool = typer.Option(False, "--async", help="Launch and return immediately."),
-    output_dir: Optional[str] = typer.Option(None, "--output-dir", "-o", help="Local dir for results."),
+    output_dir: str | None = typer.Option(
+        None,
+        "--output-dir",
+        "-o",
+        help="Local dir for results.",
+    ),
 ) -> None:
     """Launch a training job on a GCP GPU instance."""
 
@@ -144,9 +162,12 @@ def launch(
         console.print(f"  Uploaded {file_count} files to gs://{bucket_name}/{gcs_prefix}/")
 
         # Provision VM
-        console.print(f"[5/6] Provisioning {gpu_spec.machine_type} with {cfg.gpu.upper()} in {gpu_spec.zones[0]}...")
+        zone = gpu_spec.zones[0]
+        console.print(
+            f"[5/6] Provisioning {gpu_spec.machine_type} with {cfg.gpu.upper()} in {zone}..."
+        )
         job.transition(JobState.PROVISIONING)
-        job.zone = gpu_spec.zones[0]
+        job.zone = zone
         job.save()
 
         gcs_input = f"gs://{bucket_name}/{gcs_prefix}"

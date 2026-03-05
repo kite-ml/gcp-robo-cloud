@@ -15,7 +15,12 @@ console = Console()
 
 def estimate(
     gpu: str = typer.Option("t4", "--gpu", "-g", help=f"GPU type: {', '.join(VALID_GPU_ALIASES)}"),
-    duration: str = typer.Option("1h", "--duration", "-d", help="Estimated duration (e.g., 2h, 30m)."),
+    duration: str = typer.Option(
+        "1h",
+        "--duration",
+        "-d",
+        help="Estimated duration (e.g., 2h, 30m).",
+    ),
     spot: bool = typer.Option(True, "--spot/--no-spot", help="Use spot pricing."),
     all_gpus: bool = typer.Option(False, "--all", help="Show estimates for all GPU types."),
 ) -> None:

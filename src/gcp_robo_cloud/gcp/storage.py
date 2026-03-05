@@ -8,7 +8,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-from google.cloud import storage
+import google.cloud.storage as storage
 from rich.console import Console
 from rich.progress import Progress
 

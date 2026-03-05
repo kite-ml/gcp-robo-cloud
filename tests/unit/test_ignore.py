@@ -6,7 +6,6 @@ from pathlib import Path
 from gcp_robo_cloud.sync.ignore import (
     BUILTIN_EXCLUDES,
     collect_files,
-    load_ignore_patterns,
     should_exclude,
 )
 

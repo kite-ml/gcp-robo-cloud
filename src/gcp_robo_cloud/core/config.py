@@ -49,7 +49,7 @@ class Config:
     sync: SyncConfig = field(default_factory=SyncConfig)
 
 
-def _load_yaml(path: Path) -> dict:
+def _load_yaml(path: Path) -> dict[str, object]:
     """Load a YAML file, returning empty dict if it doesn't exist."""
     if not path.exists():
         return {}
@@ -61,7 +61,7 @@ def _load_yaml(path: Path) -> dict:
         return {}
 
 
-def _merge_into_config(config: Config, data: dict) -> None:
+def _merge_into_config(config: Config, data: dict[str, object]) -> None:
     """Merge a dict of values into a Config, only overwriting non-empty values."""
     for key, value in data.items():
         if key == "docker" and isinstance(value, dict):
@@ -78,7 +78,7 @@ def _merge_into_config(config: Config, data: dict) -> None:
 
 def load_config(
     project_dir: Path | None = None,
-    overrides: dict | None = None,
+    overrides: dict[str, object] | None = None,
 ) -> Config:
     """Load and merge config from all sources.
 

@@ -64,7 +64,7 @@ def stream_logs(
 
     except KeyboardInterrupt:
         console.print("\n  Detached from logs. Job continues running.")
-        console.print(f"  Re-attach with: gcp-robo-cloud logs <job_id>")
+        console.print("  Re-attach with: gcp-robo-cloud logs <job_id>")
 
 
 def _is_relevant_log(line: str) -> bool:

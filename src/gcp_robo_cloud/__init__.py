@@ -11,7 +11,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Optional
 
 from gcp_robo_cloud._version import __version__
 from gcp_robo_cloud.core.job import Job, JobState
@@ -34,8 +33,8 @@ def launch(
     args: str = "",
     spot: bool = True,
     max_duration: str = "4h",
-    project_dir: Optional[str] = None,
-    output_dir: Optional[str] = None,
+    project_dir: str | None = None,
+    output_dir: str | None = None,
     wait: bool = True,
     name: str = "",
 ) -> LaunchResult | Job:
@@ -71,7 +70,13 @@ def launch(
     proj_dir = Path(project_dir) if project_dir else Path.cwd()
 
     # Load config
-    overrides = {"gpu": gpu, "spot": spot, "max_duration": max_duration, "script": script, "args": args}
+    overrides = {
+        "gpu": gpu,
+        "spot": spot,
+        "max_duration": max_duration,
+        "script": script,
+        "args": args,
+    }
     cfg = load_config(project_dir=proj_dir, overrides=overrides)
 
     gpu_spec = resolve_gpu(cfg.gpu)
@@ -95,7 +100,14 @@ def launch(
     job.save()
 
     local_tag = f"gcp-robo-cloud-{job.id}:latest"
-    build_image(proj_dir, info, cfg.gpu, local_tag, cfg.docker.base_image, cfg.docker.python_version)
+    build_image(
+        proj_dir,
+        info,
+        cfg.gpu,
+        local_tag,
+        cfg.docker.base_image,
+        cfg.docker.python_version,
+    )
 
     region = cfg.region
     configure_docker_auth(region)
@@ -109,7 +121,14 @@ def launch(
     job.save()
     bucket_name = get_or_create_bucket(credentials, project_id, cfg.gcs_bucket, region)
     job.gcs_bucket = bucket_name
-    gcs_prefix, _ = upload_project(credentials, project_id, bucket_name, job.id, proj_dir, cfg.sync.exclude)
+    gcs_prefix, _ = upload_project(
+        credentials,
+        project_id,
+        bucket_name,
+        job.id,
+        proj_dir,
+        cfg.sync.exclude,
+    )
     job.gcs_prefix = gcs_prefix
 
     # Provision
@@ -121,8 +140,18 @@ def launch(
     gcs_output = f"gs://{bucket_name}/jobs/{job.id}/output"
 
     create_instance(
-        credentials, project_id, job.zone, job.instance_name, gpu_spec,
-        job.image_uri, gcs_input, gcs_output, cfg.script, cfg.args, cfg.spot, cfg.max_duration,
+        credentials,
+        project_id,
+        job.zone,
+        job.instance_name,
+        gpu_spec,
+        job.image_uri,
+        gcs_input,
+        gcs_output,
+        cfg.script,
+        cfg.args,
+        cfg.spot,
+        cfg.max_duration,
     )
 
     wait_for_instance_running(credentials, project_id, job.zone, job.instance_name)

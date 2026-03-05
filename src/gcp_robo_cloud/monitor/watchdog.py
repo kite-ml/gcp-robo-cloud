@@ -12,8 +12,6 @@ import time
 from typing import TYPE_CHECKING
 
 from rich.console import Console
-from rich.live import Live
-from rich.table import Table
 
 from gcp_robo_cloud.core.job import Job, JobState
 from gcp_robo_cloud.gcp.compute import delete_instance, get_instance_status

@@ -121,7 +121,7 @@ def _set_value(key_value: str) -> None:
 
     # Load existing config
     USER_CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
-    data: dict = {}
+    data: dict[str, object] = {}
     if USER_CONFIG_PATH.exists():
         data = yaml.safe_load(USER_CONFIG_PATH.read_text()) or {}
 
