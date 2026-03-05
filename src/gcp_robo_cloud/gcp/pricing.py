@@ -9,7 +9,7 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-from gcp_robocloud.core.gpu_map import GPUSpec, resolve_gpu
+from gcp_robo_cloud.core.gpu_map import GPUSpec, resolve_gpu
 
 
 @dataclass

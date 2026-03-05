@@ -7,8 +7,8 @@ from typing import TYPE_CHECKING
 
 from rich.console import Console
 
-from gcp_robocloud.gcp.storage import upload_directory
-from gcp_robocloud.sync.ignore import load_ignore_patterns
+from gcp_robo_cloud.gcp.storage import upload_directory
+from gcp_robo_cloud.sync.ignore import load_ignore_patterns
 
 if TYPE_CHECKING:
     from google.auth.credentials import Credentials

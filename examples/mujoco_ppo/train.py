@@ -3,8 +3,8 @@
 Train a locomotion policy using PPO on a MuJoCo environment.
 
 Usage:
-    gcp-robocloud launch train.py --gpu t4
-    gcp-robocloud launch train.py --gpu a100 --args "--env Ant-v4 --timesteps 1000000"
+    gcp-robo-cloud launch train.py --gpu t4
+    gcp-robo-cloud launch train.py --gpu a100 --args "--env Ant-v4 --timesteps 1000000"
 """
 
 import argparse

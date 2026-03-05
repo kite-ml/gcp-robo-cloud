@@ -39,4 +39,4 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -e ".[dev]"
-      - run: mypy src/gcp_robocloud/ --ignore-missing-imports
+      - run: mypy src/gcp_robo_cloud/ --ignore-missing-imports

@@ -12,7 +12,7 @@ from typing import TYPE_CHECKING
 from google.cloud import compute_v1
 from rich.console import Console
 
-from gcp_robocloud.core.gpu_map import GPUSpec
+from gcp_robo_cloud.core.gpu_map import GPUSpec
 
 if TYPE_CHECKING:
     from google.auth.credentials import Credentials
@@ -39,7 +39,7 @@ def _build_startup_script(
     return f"""#!/bin/bash
 set -e
 
-echo "=== gcp-robocloud startup ==="
+echo "=== gcp-robo-cloud startup ==="
 
 # Install GPU drivers
 echo "Installing GPU drivers..."
@@ -115,7 +115,7 @@ echo "=== Training finished with exit code: $EXIT_CODE ==="
 echo "Uploading results..."
 gsutil -m cp -r /workspace/output/* {gcs_output_path}/ 2>&1 || true
 
-echo "=== gcp-robocloud complete ==="
+echo "=== gcp-robo-cloud complete ==="
 
 # Self-terminate
 echo "Self-terminating VM..."

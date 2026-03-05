@@ -1,6 +1,6 @@
 """File exclusion patterns for project upload.
 
-Supports .gcp-robocloud-ignore files (gitignore syntax) plus built-in defaults.
+Supports .gcp-robo-cloud-ignore files (gitignore syntax) plus built-in defaults.
 """
 
 from __future__ import annotations
@@ -24,8 +24,8 @@ BUILTIN_EXCLUDES = [
     "node_modules/**",
     "*.egg-info",
     "*.egg-info/**",
-    ".gcp-robocloud",
-    ".gcp-robocloud/**",
+    ".gcp-robo-cloud",
+    ".gcp-robo-cloud/**",
     ".mypy_cache",
     ".mypy_cache/**",
     ".pytest_cache",
@@ -40,7 +40,7 @@ BUILTIN_EXCLUDES = [
     ".DS_Store",
 ]
 
-IGNORE_FILENAME = ".gcp-robocloud-ignore"
+IGNORE_FILENAME = ".gcp-robo-cloud-ignore"
 
 
 def load_ignore_patterns(project_dir: Path) -> list[str]:

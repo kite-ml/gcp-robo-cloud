@@ -2,8 +2,8 @@
 
 Config priority (highest wins):
 1. CLI flags / Python API arguments
-2. Project-level gcp-robocloud.yaml
-3. User-level ~/.gcp-robocloud/config.yaml
+2. Project-level gcp-robo-cloud.yaml
+3. User-level ~/.gcp-robo-cloud/config.yaml
 """
 
 from __future__ import annotations
@@ -13,8 +13,8 @@ from pathlib import Path
 
 import yaml
 
-USER_CONFIG_PATH = Path.home() / ".gcp-robocloud" / "config.yaml"
-PROJECT_CONFIG_NAME = "gcp-robocloud.yaml"
+USER_CONFIG_PATH = Path.home() / ".gcp-robo-cloud" / "config.yaml"
+PROJECT_CONFIG_NAME = "gcp-robo-cloud.yaml"
 
 
 @dataclass
@@ -83,7 +83,7 @@ def load_config(
     """Load and merge config from all sources.
 
     Args:
-        project_dir: Directory to look for gcp-robocloud.yaml. Defaults to cwd.
+        project_dir: Directory to look for gcp-robo-cloud.yaml. Defaults to cwd.
         overrides: CLI/API overrides (highest priority).
     """
     config = Config()

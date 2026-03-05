@@ -1,13 +1,13 @@
-"""The `gcp-robocloud stop` command."""
+"""The `gcp-robo-cloud stop` command."""
 
 from __future__ import annotations
 
 import typer
 from rich.console import Console
 
-from gcp_robocloud.core.job import Job, JobState
-from gcp_robocloud.gcp.auth import resolve_project
-from gcp_robocloud.monitor.watchdog import cleanup_job
+from gcp_robo_cloud.core.job import Job, JobState
+from gcp_robo_cloud.gcp.auth import resolve_project
+from gcp_robo_cloud.monitor.watchdog import cleanup_job
 
 console = Console()
 

@@ -14,7 +14,7 @@ from datetime import datetime, timezone
 from enum import Enum
 from pathlib import Path
 
-JOBS_DIR = Path.home() / ".gcp-robocloud" / "jobs"
+JOBS_DIR = Path.home() / ".gcp-robo-cloud" / "jobs"
 
 
 class JobState(str, Enum):

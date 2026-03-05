@@ -1,4 +1,4 @@
-"""The `gcp-robocloud estimate` command."""
+"""The `gcp-robo-cloud estimate` command."""
 
 from __future__ import annotations
 
@@ -7,8 +7,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from gcp_robocloud.core.gpu_map import GPU_MAP, VALID_GPU_ALIASES
-from gcp_robocloud.gcp.pricing import estimate_cost, format_estimate
+from gcp_robo_cloud.core.gpu_map import GPU_MAP, VALID_GPU_ALIASES
+from gcp_robo_cloud.gcp.pricing import estimate_cost, format_estimate
 
 console = Console()
 

@@ -2,7 +2,7 @@
 
 import pytest
 
-from gcp_robocloud.gcp.pricing import CostEstimate, estimate_cost, format_estimate, parse_duration
+from gcp_robo_cloud.gcp.pricing import CostEstimate, estimate_cost, format_estimate, parse_duration
 
 
 class TestParseDuration:

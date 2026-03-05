@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 console = Console()
 
-DEFAULT_REPO_NAME = "gcp-robocloud"
+DEFAULT_REPO_NAME = "gcp-robo-cloud"
 
 
 def ensure_repository(
@@ -53,7 +53,7 @@ def ensure_repository(
                 f"--project={project_id}",
                 f"--location={region}",
                 "--repository-format=docker",
-                "--description=gcp-robocloud training images",
+                "--description=gcp-robo-cloud training images",
             ],
             check=True,
             capture_output=True,

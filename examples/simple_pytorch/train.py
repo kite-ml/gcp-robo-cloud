@@ -1,8 +1,8 @@
-"""Simple PyTorch training example for gcp-robocloud.
+"""Simple PyTorch training example for gcp-robo-cloud.
 
 Usage:
-    gcp-robocloud launch train.py --gpu t4
-    gcp-robocloud launch train.py --gpu a100 --args "--epochs 50 --lr 0.001"
+    gcp-robo-cloud launch train.py --gpu t4
+    gcp-robo-cloud launch train.py --gpu a100 --args "--epochs 50 --lr 0.001"
 """
 
 import argparse

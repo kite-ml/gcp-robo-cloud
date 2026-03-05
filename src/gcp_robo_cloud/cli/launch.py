@@ -1,4 +1,4 @@
-"""The `gcp-robocloud launch` command - main entry point for training jobs."""
+"""The `gcp-robo-cloud launch` command - main entry point for training jobs."""
 
 from __future__ import annotations
 
@@ -9,21 +9,21 @@ import typer
 from rich.console import Console
 from rich.panel import Panel
 
-from gcp_robocloud._version import __version__
-from gcp_robocloud.core.config import load_config
-from gcp_robocloud.core.gpu_map import VALID_GPU_ALIASES, resolve_gpu
-from gcp_robocloud.core.job import Job, JobState
-from gcp_robocloud.docker.builder import build_image
-from gcp_robocloud.docker.detect import detect_project
-from gcp_robocloud.gcp.auth import resolve_project
-from gcp_robocloud.gcp.compute import create_instance, wait_for_instance_running
-from gcp_robocloud.gcp.pricing import estimate_cost, format_estimate
-from gcp_robocloud.gcp.registry import configure_docker_auth, ensure_repository, push_image
-from gcp_robocloud.gcp.storage import get_or_create_bucket
-from gcp_robocloud.monitor.logs import stream_logs
-from gcp_robocloud.monitor.watchdog import cleanup_job, monitor_job
-from gcp_robocloud.sync.download import download_results
-from gcp_robocloud.sync.upload import upload_project
+from gcp_robo_cloud._version import __version__
+from gcp_robo_cloud.core.config import load_config
+from gcp_robo_cloud.core.gpu_map import VALID_GPU_ALIASES, resolve_gpu
+from gcp_robo_cloud.core.job import Job, JobState
+from gcp_robo_cloud.docker.builder import build_image
+from gcp_robo_cloud.docker.detect import detect_project
+from gcp_robo_cloud.gcp.auth import resolve_project
+from gcp_robo_cloud.gcp.compute import create_instance, wait_for_instance_running
+from gcp_robo_cloud.gcp.pricing import estimate_cost, format_estimate
+from gcp_robo_cloud.gcp.registry import configure_docker_auth, ensure_repository, push_image
+from gcp_robo_cloud.gcp.storage import get_or_create_bucket
+from gcp_robo_cloud.monitor.logs import stream_logs
+from gcp_robo_cloud.monitor.watchdog import cleanup_job, monitor_job
+from gcp_robo_cloud.sync.download import download_results
+from gcp_robo_cloud.sync.upload import upload_project
 
 console = Console()
 
@@ -37,13 +37,13 @@ def launch(
     max_duration: str = typer.Option("4h", "--max-duration", "-d", help="Max runtime (e.g., 2h, 30m)."),
     name: str = typer.Option("", "--name", "-n", help="Job name."),
     project_dir: Optional[str] = typer.Option(None, "--dir", help="Project directory (default: cwd)."),
-    config_path: Optional[str] = typer.Option(None, "--config", "-c", help="Path to gcp-robocloud.yaml."),
+    config_path: Optional[str] = typer.Option(None, "--config", "-c", help="Path to gcp-robo-cloud.yaml."),
     async_mode: bool = typer.Option(False, "--async", help="Launch and return immediately."),
     output_dir: Optional[str] = typer.Option(None, "--output-dir", "-o", help="Local dir for results."),
 ) -> None:
     """Launch a training job on a GCP GPU instance."""
 
-    console.print(f"\n[bold]gcp-robocloud[/bold] v{__version__}\n")
+    console.print(f"\n[bold]gcp-robo-cloud[/bold] v{__version__}\n")
 
     # Resolve project directory
     proj_dir = Path(project_dir) if project_dir else Path.cwd()
@@ -88,7 +88,7 @@ def launch(
         max_duration=cfg.max_duration,
         project_id=project_id,
     )
-    job.instance_name = f"gcp-robocloud-{job.id}"
+    job.instance_name = f"gcp-robo-cloud-{job.id}"
 
     try:
         # Detect project
@@ -106,7 +106,7 @@ def launch(
         job.transition(JobState.BUILDING_IMAGE)
         job.save()
 
-        local_tag = f"gcp-robocloud-{job.id}:latest"
+        local_tag = f"gcp-robo-cloud-{job.id}:latest"
         build_image(
             project_dir=proj_dir,
             info=info,
@@ -179,8 +179,8 @@ def launch(
 
         if async_mode:
             console.print(f"\n  Job launched: {job.id}")
-            console.print(f"  Check status: gcp-robocloud status {job.id}")
-            console.print(f"  View logs:    gcp-robocloud logs {job.id}")
+            console.print(f"  Check status: gcp-robo-cloud status {job.id}")
+            console.print(f"  View logs:    gcp-robo-cloud logs {job.id}")
             return
 
         # Stream logs and monitor

@@ -3,7 +3,7 @@
 import tempfile
 from pathlib import Path
 
-from gcp_robocloud.docker.detect import (
+from gcp_robo_cloud.docker.detect import (
     detect_project,
     get_install_method,
     select_base_image,

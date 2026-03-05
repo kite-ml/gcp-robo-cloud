@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 console = Console()
 
-DEFAULT_BUCKET_PREFIX = "gcp-robocloud"
+DEFAULT_BUCKET_PREFIX = "gcp-robo-cloud"
 
 
 def get_or_create_bucket(

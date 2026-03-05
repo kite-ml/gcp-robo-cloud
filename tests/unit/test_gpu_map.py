@@ -2,7 +2,7 @@
 
 import pytest
 
-from gcp_robocloud.core.gpu_map import GPU_MAP, VALID_GPU_ALIASES, GPUSpec, resolve_gpu
+from gcp_robo_cloud.core.gpu_map import GPU_MAP, VALID_GPU_ALIASES, GPUSpec, resolve_gpu
 
 
 class TestResolveGpu:

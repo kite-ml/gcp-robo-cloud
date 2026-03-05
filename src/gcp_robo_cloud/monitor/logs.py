@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 
 from rich.console import Console
 
-from gcp_robocloud.gcp.compute import get_serial_output
+from gcp_robo_cloud.gcp.compute import get_serial_output
 
 if TYPE_CHECKING:
     from google.auth.credentials import Credentials
@@ -21,7 +21,7 @@ def stream_logs(
     zone: str,
     instance_name: str,
     poll_interval: float = 3.0,
-    stop_marker: str = "=== gcp-robocloud complete ===",
+    stop_marker: str = "=== gcp-robo-cloud complete ===",
 ) -> None:
     """Stream serial port logs from a running VM.
 
@@ -64,7 +64,7 @@ def stream_logs(
 
     except KeyboardInterrupt:
         console.print("\n  Detached from logs. Job continues running.")
-        console.print(f"  Re-attach with: gcp-robocloud logs <job_id>")
+        console.print(f"  Re-attach with: gcp-robo-cloud logs <job_id>")
 
 
 def _is_relevant_log(line: str) -> bool:

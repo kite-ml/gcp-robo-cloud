@@ -1,4 +1,4 @@
-"""The `gcp-robocloud status` command."""
+"""The `gcp-robo-cloud status` command."""
 
 from __future__ import annotations
 
@@ -8,7 +8,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from gcp_robocloud.core.job import Job, JobState
+from gcp_robo_cloud.core.job import Job, JobState
 
 console = Console()
 
@@ -43,7 +43,7 @@ def status(
         # List all jobs
         jobs = Job.list_all()
         if not jobs:
-            console.print("No jobs found. Launch one with: gcp-robocloud launch train.py --gpu t4")
+            console.print("No jobs found. Launch one with: gcp-robo-cloud launch train.py --gpu t4")
             return
 
         _print_job_table(jobs)

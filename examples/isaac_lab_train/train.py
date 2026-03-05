@@ -4,7 +4,7 @@ Train a robot locomotion policy using Isaac Lab's RL workflow.
 Requires NVIDIA Isaac Lab (installed in the base image).
 
 Usage:
-    gcp-robocloud launch train.py --gpu a100 --args "--task Isaac-Cartpole-v0 --num_envs 4096"
+    gcp-robo-cloud launch train.py --gpu a100 --args "--task Isaac-Cartpole-v0 --num_envs 4096"
 """
 
 import argparse

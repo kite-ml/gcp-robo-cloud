@@ -1,36 +1,36 @@
-# gcp-robocloud
+# gcp-robo-cloud
 
 **One command to train your robot on cloud GPUs.**
 
-gcp-robocloud makes it dead simple for robotics developers to run training jobs on GCP GPU instances. No Kubernetes, no Terraform, no infrastructure expertise needed.
+gcp-robo-cloud makes it dead simple for robotics developers to run training jobs on GCP GPU instances. No Kubernetes, no Terraform, no infrastructure expertise needed.
 
 ```bash
-pip install gcp-robocloud
-gcp-robocloud launch train.py --gpu a100
+pip install gcp-robo-cloud
+gcp-robo-cloud launch train.py --gpu a100
 ```
 
 That's it. Your training script runs on a cloud A100, and results are downloaded when it finishes.
 
 ## Why?
 
-Training robotics policies (RL, imitation learning, sim-to-real) requires GPU compute that most developers don't have locally. Getting cloud GPUs currently means wrestling with VM provisioning, Docker, networking, and cost management. gcp-robocloud handles all of that.
+Training robotics policies (RL, imitation learning, sim-to-real) requires GPU compute that most developers don't have locally. Getting cloud GPUs currently means wrestling with VM provisioning, Docker, networking, and cost management. gcp-robo-cloud handles all of that.
 
 ## Features
 
-- **One-command launch** - `gcp-robocloud launch train.py --gpu a100`
+- **One-command launch** - `gcp-robo-cloud launch train.py --gpu a100`
 - **Auto-containerization** - Detects your dependencies, builds and pushes a Docker image automatically
 - **Framework agnostic** - Works with PyTorch, Isaac Lab, MuJoCo, PyBullet, ROS 2, or any Python project
 - **Cost-conscious** - Spot instances by default (60-91% cheaper), auto-shutdown after training, cost estimates
 - **File sync** - Uploads your code, downloads results automatically via GCS
 - **Simple auth** - Uses your existing `gcloud` credentials
-- **Python API** - Use programmatically: `gcp_robocloud.launch(script="train.py", gpu="a100")`
+- **Python API** - Use programmatically: `gcp_robo_cloud.launch(script="train.py", gpu="a100")`
 
 ## Quick Start
 
 ### 1. Install
 
 ```bash
-pip install gcp-robocloud
+pip install gcp-robo-cloud
 ```
 
 ### 2. Authenticate (if you haven't already)
@@ -43,7 +43,7 @@ gcloud config set project YOUR_PROJECT_ID
 ### 3. First-time setup
 
 ```bash
-gcp-robocloud config --init
+gcp-robo-cloud config --init
 ```
 
 This enables the required GCP APIs (Compute Engine, Cloud Storage, Artifact Registry).
@@ -52,7 +52,7 @@ This enables the required GCP APIs (Compute Engine, Cloud Storage, Artifact Regi
 
 ```bash
 cd my-robotics-project/
-gcp-robocloud launch train.py --gpu a100
+gcp-robo-cloud launch train.py --gpu a100
 ```
 
 ## Available GPUs
@@ -70,34 +70,34 @@ gcp-robocloud launch train.py --gpu a100
 
 ```bash
 # Launch training
-gcp-robocloud launch train.py --gpu a100
-gcp-robocloud launch train.py --gpu t4 --no-spot           # On-demand instance
-gcp-robocloud launch train.py --gpu a100 --args "--epochs 100 --lr 0.001"
-gcp-robocloud launch train.py --gpu l4 --max-duration 2h   # Auto-stop after 2 hours
-gcp-robocloud launch train.py --gpu a100 --async            # Don't wait for completion
+gcp-robo-cloud launch train.py --gpu a100
+gcp-robo-cloud launch train.py --gpu t4 --no-spot           # On-demand instance
+gcp-robo-cloud launch train.py --gpu a100 --args "--epochs 100 --lr 0.001"
+gcp-robo-cloud launch train.py --gpu l4 --max-duration 2h   # Auto-stop after 2 hours
+gcp-robo-cloud launch train.py --gpu a100 --async            # Don't wait for completion
 
 # Job management
-gcp-robocloud status                   # List all jobs
-gcp-robocloud status <job_id>          # Job details
-gcp-robocloud stop <job_id>            # Stop and delete VM
+gcp-robo-cloud status                   # List all jobs
+gcp-robo-cloud status <job_id>          # Job details
+gcp-robo-cloud stop <job_id>            # Stop and delete VM
 
 # Cost estimation
-gcp-robocloud estimate --gpu a100 --duration 2h
-gcp-robocloud estimate --all --duration 4h     # Compare all GPUs
+gcp-robo-cloud estimate --gpu a100 --duration 2h
+gcp-robo-cloud estimate --all --duration 4h     # Compare all GPUs
 
 # Configuration
-gcp-robocloud config --init            # First-time setup
-gcp-robocloud config --show            # Show current config
-gcp-robocloud config --set gpu=a100    # Set defaults
+gcp-robo-cloud config --init            # First-time setup
+gcp-robo-cloud config --show            # Show current config
+gcp-robo-cloud config --set gpu=a100    # Set defaults
 ```
 
 ## Python API
 
 ```python
-import gcp_robocloud
+import gcp_robo_cloud
 
 # Blocking - waits for training to complete
-result = gcp_robocloud.launch(
+result = gcp_robo_cloud.launch(
     script="train.py",
     gpu="a100",
     args="--epochs 100",
@@ -108,20 +108,20 @@ print(result.output_dir)   # Path to downloaded results
 print(result.cost_usd)     # Estimated cost
 
 # Non-blocking - returns immediately
-job = gcp_robocloud.launch(script="train.py", gpu="a100", wait=False)
+job = gcp_robo_cloud.launch(script="train.py", gpu="a100", wait=False)
 print(job.id)              # Job ID for tracking
 
 # Check status later
-status = gcp_robocloud.status(job.id)
+status = gcp_robo_cloud.status(job.id)
 print(status.state)
 
 # Stop a running job
-gcp_robocloud.stop(job.id)
+gcp_robo_cloud.stop(job.id)
 ```
 
 ## Configuration
 
-Create a `gcp-robocloud.yaml` in your project root for persistent settings:
+Create a `gcp-robo-cloud.yaml` in your project root for persistent settings:
 
 ```yaml
 project: my-gcp-project
@@ -156,7 +156,7 @@ args: "--num-envs 4096 --headless"
 
 ## Custom Dockerfiles
 
-If you need more control, place a `Dockerfile` in your project root. gcp-robocloud will use it directly instead of auto-generating one.
+If you need more control, place a `Dockerfile` in your project root. gcp-robo-cloud will use it directly instead of auto-generating one.
 
 Or specify a base image in your config:
 
@@ -167,9 +167,9 @@ docker:
 
 ## File Sync
 
-By default, gcp-robocloud uploads your project files (excluding `.git`, `__pycache__`, `.venv`, etc.) and downloads everything from `outputs/` after training.
+By default, gcp-robo-cloud uploads your project files (excluding `.git`, `__pycache__`, `.venv`, etc.) and downloads everything from `outputs/` after training.
 
-Create a `.gcp-robocloud-ignore` file (gitignore syntax) to customize:
+Create a `.gcp-robo-cloud-ignore` file (gitignore syntax) to customize:
 
 ```
 # Don't upload large data files

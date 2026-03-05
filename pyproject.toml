@@ -3,13 +3,13 @@ requires = ["setuptools>=68.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "gcp-robocloud"
+name = "gcp-robo-cloud"
 version = "0.1.0"
 description = "One command to train your robot on cloud GPUs."
 readme = "README.md"
 license = "Apache-2.0"
 requires-python = ">=3.10"
-authors = [{ name = "gcp-robocloud contributors" }]
+authors = [{ name = "gcp-robo-cloud contributors" }]
 keywords = ["robotics", "gcp", "gpu", "cloud", "training", "machine-learning"]
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -43,13 +43,13 @@ dev = [
 ]
 
 [project.scripts]
-gcp-robocloud = "gcp_robocloud.cli.app:app"
+gcp-robo-cloud = "gcp_robo_cloud.cli.app:app"
 
 [project.urls]
-Homepage = "https://github.com/gcp-robocloud/gcp-robocloud"
-Documentation = "https://gcp-robocloud.github.io/gcp-robocloud"
-Repository = "https://github.com/gcp-robocloud/gcp-robocloud"
-Issues = "https://github.com/gcp-robocloud/gcp-robocloud/issues"
+Homepage = "https://github.com/kite-ml/gcp-robo-cloud"
+Documentation = "https://kite-ml.github.io/gcp-robo-cloud"
+Repository = "https://github.com/kite-ml/gcp-robo-cloud"
+Issues = "https://github.com/kite-ml/gcp-robo-cloud/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]

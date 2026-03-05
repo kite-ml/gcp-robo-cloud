@@ -15,8 +15,8 @@ from rich.console import Console
 from rich.live import Live
 from rich.table import Table
 
-from gcp_robocloud.core.job import Job, JobState
-from gcp_robocloud.gcp.compute import delete_instance, get_instance_status
+from gcp_robo_cloud.core.job import Job, JobState
+from gcp_robo_cloud.gcp.compute import delete_instance, get_instance_status
 
 if TYPE_CHECKING:
     from google.auth.credentials import Credentials
@@ -68,7 +68,7 @@ def monitor_job(
 
     except KeyboardInterrupt:
         console.print("\n  Detached. Job continues running in the cloud.")
-        console.print(f"  Check status: gcp-robocloud status {job.id}")
+        console.print(f"  Check status: gcp-robo-cloud status {job.id}")
         return job.state
 
 

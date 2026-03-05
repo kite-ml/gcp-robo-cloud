@@ -39,7 +39,7 @@ def get_credentials() -> tuple[Credentials, str]:
         raise AuthError(
             "GCP project ID not found. Set it with:\n"
             "  gcloud config set project YOUR_PROJECT_ID\n"
-            "Or add 'project: YOUR_PROJECT_ID' to gcp-robocloud.yaml"
+            "Or add 'project: YOUR_PROJECT_ID' to gcp-robo-cloud.yaml"
         )
 
     return credentials, project_id

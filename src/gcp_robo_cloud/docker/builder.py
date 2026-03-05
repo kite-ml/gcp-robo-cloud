@@ -13,8 +13,8 @@ import docker as docker_sdk
 import jinja2
 from rich.console import Console
 
-from gcp_robocloud.docker.detect import ProjectInfo, get_install_method, select_base_image
-from gcp_robocloud.docker.templates import CUDA_TEMPLATE, ROS2_TEMPLATE
+from gcp_robo_cloud.docker.detect import ProjectInfo, get_install_method, select_base_image
+from gcp_robo_cloud.docker.templates import CUDA_TEMPLATE, ROS2_TEMPLATE
 
 console = Console()
 

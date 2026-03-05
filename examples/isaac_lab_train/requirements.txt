@@ -1,4 +1,4 @@
 # Isaac Lab dependencies are provided by the base Docker image.
-# Configure in gcp-robocloud.yaml:
+# Configure in gcp-robo-cloud.yaml:
 #   docker:
 #     base_image: nvcr.io/nvidia/isaac-lab:4.5.0

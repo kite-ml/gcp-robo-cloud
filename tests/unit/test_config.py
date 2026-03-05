@@ -5,7 +5,7 @@ from pathlib import Path
 
 import yaml
 
-from gcp_robocloud.core.config import Config, DockerConfig, SyncConfig, load_config
+from gcp_robo_cloud.core.config import Config, DockerConfig, SyncConfig, load_config
 
 
 class TestConfigDefaults:
@@ -38,7 +38,7 @@ class TestLoadConfig:
     def test_project_config_overrides(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             config_data = {"gpu": "a100", "spot": False}
-            (Path(tmpdir) / "gcp-robocloud.yaml").write_text(yaml.dump(config_data))
+            (Path(tmpdir) / "gcp-robo-cloud.yaml").write_text(yaml.dump(config_data))
             cfg = load_config(project_dir=Path(tmpdir))
             assert cfg.gpu == "a100"
             assert cfg.spot is False
@@ -46,7 +46,7 @@ class TestLoadConfig:
     def test_cli_overrides_project(self):
         with tempfile.TemporaryDirectory() as tmpdir:
             config_data = {"gpu": "a100", "max_duration": "2h"}
-            (Path(tmpdir) / "gcp-robocloud.yaml").write_text(yaml.dump(config_data))
+            (Path(tmpdir) / "gcp-robo-cloud.yaml").write_text(yaml.dump(config_data))
             cfg = load_config(project_dir=Path(tmpdir), overrides={"gpu": "h100"})
             assert cfg.gpu == "h100"
             assert cfg.max_duration == "2h"  # Not overridden
@@ -60,7 +60,7 @@ class TestLoadConfig:
                     "system_packages": ["libfoo"],
                 }
             }
-            (Path(tmpdir) / "gcp-robocloud.yaml").write_text(yaml.dump(config_data))
+            (Path(tmpdir) / "gcp-robo-cloud.yaml").write_text(yaml.dump(config_data))
             cfg = load_config(project_dir=Path(tmpdir))
             assert cfg.docker.base_image == "custom:latest"
             assert cfg.docker.python_version == "3.12"
@@ -74,14 +74,14 @@ class TestLoadConfig:
                     "output_patterns": ["results/**"],
                 }
             }
-            (Path(tmpdir) / "gcp-robocloud.yaml").write_text(yaml.dump(config_data))
+            (Path(tmpdir) / "gcp-robo-cloud.yaml").write_text(yaml.dump(config_data))
             cfg = load_config(project_dir=Path(tmpdir))
             assert cfg.sync.exclude == ["data/", "*.bin"]
             assert cfg.sync.output_patterns == ["results/**"]
 
     def test_invalid_yaml_returns_defaults(self):
         with tempfile.TemporaryDirectory() as tmpdir:
-            (Path(tmpdir) / "gcp-robocloud.yaml").write_text("not: [valid: yaml: {{")
+            (Path(tmpdir) / "gcp-robo-cloud.yaml").write_text("not: [valid: yaml: {{")
             # Should not crash, just use defaults
             cfg = load_config(project_dir=Path(tmpdir))
             assert cfg.gpu == "t4"

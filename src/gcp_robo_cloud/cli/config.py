@@ -1,4 +1,4 @@
-"""The `gcp-robocloud config` command."""
+"""The `gcp-robo-cloud config` command."""
 
 from __future__ import annotations
 
@@ -9,7 +9,7 @@ import yaml
 from rich.console import Console
 from rich.panel import Panel
 
-from gcp_robocloud.core.config import USER_CONFIG_PATH, load_config
+from gcp_robo_cloud.core.config import USER_CONFIG_PATH, load_config
 
 console = Console()
 
@@ -25,7 +25,7 @@ def config(
     show: bool = typer.Option(False, "--show", help="Show current config."),
     set_key: str = typer.Option("", "--set", help="Set a config value (format: key=value)."),
 ) -> None:
-    """Manage gcp-robocloud configuration."""
+    """Manage gcp-robo-cloud configuration."""
 
     if init:
         _run_init()
@@ -39,7 +39,7 @@ def config(
 
 def _run_init() -> None:
     """First-time setup: check auth, enable APIs."""
-    console.print("[bold]gcp-robocloud setup[/bold]\n")
+    console.print("[bold]gcp-robo-cloud setup[/bold]\n")
 
     # Check gcloud auth
     console.print("Checking GCP authentication...")
@@ -93,7 +93,7 @@ def _run_init() -> None:
         )
         console.print(f"\n  Config written to {USER_CONFIG_PATH}")
 
-    console.print("\n[green]Setup complete![/green] Try: gcp-robocloud launch train.py --gpu t4")
+    console.print("\n[green]Setup complete![/green] Try: gcp-robo-cloud launch train.py --gpu t4")
 
 
 def _show_config() -> None:

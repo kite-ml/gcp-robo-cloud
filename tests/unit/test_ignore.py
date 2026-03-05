@@ -3,7 +3,7 @@
 import tempfile
 from pathlib import Path
 
-from gcp_robocloud.sync.ignore import (
+from gcp_robo_cloud.sync.ignore import (
     BUILTIN_EXCLUDES,
     collect_files,
     load_ignore_patterns,
@@ -76,7 +76,7 @@ class TestCollectFiles:
             root = Path(tmpdir)
             (root / "train.py").write_text("print('hi')")
             (root / "data.bin").write_bytes(b"data")
-            (root / ".gcp-robocloud-ignore").write_text("*.bin\n")
+            (root / ".gcp-robo-cloud-ignore").write_text("*.bin\n")
             files = collect_files(root)
             names = [str(f) for f in files]
             assert "train.py" in names

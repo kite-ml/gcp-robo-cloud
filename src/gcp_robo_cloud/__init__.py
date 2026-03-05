@@ -1,9 +1,9 @@
-"""gcp-robocloud: One command to train your robot on cloud GPUs.
+"""gcp-robo-cloud: One command to train your robot on cloud GPUs.
 
 Python API:
-    import gcp_robocloud
+    import gcp_robo_cloud
 
-    result = gcp_robocloud.launch(script="train.py", gpu="a100")
+    result = gcp_robo_cloud.launch(script="train.py", gpu="a100")
     print(result.output_dir, result.cost_usd)
 """
 
@@ -13,8 +13,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional
 
-from gcp_robocloud._version import __version__
-from gcp_robocloud.core.job import Job, JobState
+from gcp_robo_cloud._version import __version__
+from gcp_robo_cloud.core.job import Job, JobState
 
 
 @dataclass
@@ -55,18 +55,18 @@ def launch(
     Returns:
         LaunchResult if wait=True, Job if wait=False.
     """
-    from gcp_robocloud.core.config import load_config
-    from gcp_robocloud.core.gpu_map import resolve_gpu
-    from gcp_robocloud.docker.builder import build_image
-    from gcp_robocloud.docker.detect import detect_project
-    from gcp_robocloud.gcp.auth import resolve_project
-    from gcp_robocloud.gcp.compute import create_instance, wait_for_instance_running
-    from gcp_robocloud.gcp.pricing import estimate_cost
-    from gcp_robocloud.gcp.registry import configure_docker_auth, ensure_repository, push_image
-    from gcp_robocloud.gcp.storage import get_or_create_bucket
-    from gcp_robocloud.monitor.watchdog import monitor_job
-    from gcp_robocloud.sync.download import download_results
-    from gcp_robocloud.sync.upload import upload_project
+    from gcp_robo_cloud.core.config import load_config
+    from gcp_robo_cloud.core.gpu_map import resolve_gpu
+    from gcp_robo_cloud.docker.builder import build_image
+    from gcp_robo_cloud.docker.detect import detect_project
+    from gcp_robo_cloud.gcp.auth import resolve_project
+    from gcp_robo_cloud.gcp.compute import create_instance, wait_for_instance_running
+    from gcp_robo_cloud.gcp.pricing import estimate_cost
+    from gcp_robo_cloud.gcp.registry import configure_docker_auth, ensure_repository, push_image
+    from gcp_robo_cloud.gcp.storage import get_or_create_bucket
+    from gcp_robo_cloud.monitor.watchdog import monitor_job
+    from gcp_robo_cloud.sync.download import download_results
+    from gcp_robo_cloud.sync.upload import upload_project
 
     proj_dir = Path(project_dir) if project_dir else Path.cwd()
 
@@ -87,14 +87,14 @@ def launch(
         max_duration=cfg.max_duration,
         project_id=project_id,
     )
-    job.instance_name = f"gcp-robocloud-{job.id}"
+    job.instance_name = f"gcp-robo-cloud-{job.id}"
 
     # Detect and build
     info = detect_project(proj_dir)
     job.transition(JobState.BUILDING_IMAGE)
     job.save()
 
-    local_tag = f"gcp-robocloud-{job.id}:latest"
+    local_tag = f"gcp-robo-cloud-{job.id}:latest"
     build_image(proj_dir, info, cfg.gpu, local_tag, cfg.docker.base_image, cfg.docker.python_version)
 
     region = cfg.region
@@ -176,8 +176,8 @@ def stop(job_id: str) -> None:
     Args:
         job_id: The job ID to stop.
     """
-    from gcp_robocloud.gcp.auth import resolve_project
-    from gcp_robocloud.monitor.watchdog import cleanup_job
+    from gcp_robo_cloud.gcp.auth import resolve_project
+    from gcp_robo_cloud.monitor.watchdog import cleanup_job
 
     job = Job.load(job_id)
     if job.is_terminal:
